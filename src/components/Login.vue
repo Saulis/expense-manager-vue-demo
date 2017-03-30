@@ -1,5 +1,9 @@
 <template>
-  <div class="login-element">
+  <div class="login-page">
+    <link rel="import" href="./static/paper-input/paper-input.html">
+    <link rel="import" href="./static/paper-button/paper-button.html">
+    <link rel="import" href="./static/iron-a11y-keys/iron-a11y-keys.html">
+
     <iron-a11y-keys keys="enter" v-on:keys-pressed="_logIn"></iron-a11y-keys>
     <div id="header" class="header">
       <h1>Expense Manager</h1>
@@ -34,7 +38,7 @@
 
     methods: {
       _logIn: function (e) {
-        console.log('logged in as')
+        this.$router.replace('/foobar')
       }
     }
     // props: {
@@ -50,7 +54,7 @@
 </script>
 
 <style scoped>
-  .login-element {
+  .login-page {
     position: absolute;
     top: 0;
     left: 0;
@@ -58,7 +62,7 @@
     right: 0;
   }
 
-   .login-element {
+   .login-page {
     background: var(--dark-primary-color);
     min-height: 400px;
   }

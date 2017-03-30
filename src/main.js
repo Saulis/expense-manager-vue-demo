@@ -7,7 +7,8 @@ import router from './router'
 Vue.config.productionTip = false
 
 Vue.config.ignoredElements = [
-  'paper-button', 'paper-input', 'iron-a11y-keys'
+  'paper-button', 'paper-input', 'iron-a11y-keys', 'vaadin-pouchdb', 'iron-ajax', 'paper-header-panel',
+  'paper-toolbar', 'iron-icon', 'paper-toast', 'iron-localstorage'
 ]
 
 /* eslint-disable no-new */
