@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>expense-manager-vue-demo</title>
+
+  <script>
+    // Polymer = {
+    //   dom: 'shadow'
+    // }
+  </script>
+
+  <link rel="import" href="./static/paper-button/paper-button.html">
+  <link rel="import" href="./static/paper-input/paper-input.html">
+  <link rel="import" href="./static/iron-a11y-keys/iron-a11y-keys.html">
+</head>
+
+<body>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      height: 100%;
+      background: #33383a;
+      font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .loading {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #loadingScreen {
+      width: 100%;
+    }
+
+    #loadingScreen {
+      position: absolute;
+      top: 36%;
+      left: 0;
+      color: rgba(255, 255, 255, 0.56);
+      text-align: center;
+      line-height: 10;
+      font-weight: 400;
+      font-family: arial, sans-serif;
+    }
+
+    #loadingScreen .spinner {
+      content: "";
+      position: absolute;
+      height: 2px;
+      background: #ff3a39;
+      top: 0;
+      left: 0;
+      width: 100%;
+      animation: 1.2s loading infinite;
+      transform-origin: 100% 0;
+    }
+
+    @keyframes loading {
+      50% {
+        transform: scalex(0);
+      }
+      51% {
+        transform: translatex(-100vw);
+      }
+    }
+
+    #loadingScreen.animation-stop .spinner {
+      animation-name: none;
+    }
+
+    .loading expense-app {
+      opacity: 0;
+    }
+
+    .ready expense-app {
+      animation: fade-in 0.25s;
+    }
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+    }
+
+    #app {
+      --primary-color: #00b4f0;
+      --dark-primary-color: #33383a;
+      --text-primary-color: #fff;
+      --accent-color: #ff3a39;
+    }
+
+    /* TODO: remove hacksor */
+    .login paper-input input {
+      color: var(--text-primary-color) !important;
+    }
+
+    .login paper-input[focused] label {
+      color: var(--primary-color) !important;
+    }
+
+    .login paper-input[focused] div.focused-line {
+      border-color: var(--primary-color) !important;
+    }
+  </style>
+  <div id="loadingScreen">
+    <div class="spinner"></div>
+  </div>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>
