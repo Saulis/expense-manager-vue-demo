@@ -1,5 +1,5 @@
 <template>
-  <div class="overview-page">
+  <div id="overview-page">
     <link rel="import" href="./static/iron-localstorage/iron-localstorage.html">
     <link rel="import" href="./static/iron-ajax/iron-ajax.html">
     <link rel="import" href="./static/paper-header-panel/paper-header-panel.html">
@@ -25,7 +25,7 @@
 
       <div class="content">
         <filters-toolbar id="filters-toolbar" total-owed="[[totalOwed]]" merchants="[[merchants]]" v-bind:filters="filters" expenses="[[expenses]]"></filters-toolbar>
-        <!--<content-panel id="content-panel" filters="{{filters}}" total-owed="[[totalOwed]]" expenses="[[expenses]]"></content-panel>-->
+        <content-panel id="content-panel" v-bind:filters="filters" total-owed="[[totalOwed]]" expenses="[[expenses]]"></content-panel>
       </div>
 
     </paper-header-panel>
@@ -40,10 +40,11 @@
 <script>
   import InfoDialog from './InfoDialog'
   import FiltersToolbar from './FiltersToolbar'
+  import ContentPanel from './ContentPanel'
 
   export default {
     name: 'overview-page',
-    components: {InfoDialog, FiltersToolbar},
+    components: {InfoDialog, FiltersToolbar, ContentPanel},
     props: ['dbId', 'filters'],
 
     methods: {
@@ -59,6 +60,14 @@
 </script>
 
 <style scoped>
+  #overview-page {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   paper-toolbar {
     background: var(--dark-primary-color);
     --paper-toolbar-content: {

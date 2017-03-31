@@ -14,6 +14,12 @@
     "iron-localstorage": "^1.0.6",
     "paper-header-panel": "^1.1.7",
     "paper-toolbar": "^1.1.7",
-    "iron-ajax": "^1.4.3"
+    "iron-ajax": "^1.4.3",
+    "paper-icon-button": "^1.1.4",
+    "iron-media-query": "^1.0.8",
+    "vaadin-grid": "2.0.0-beta2",
+    "paper-fab": "^1.2.1",
+    "iron-icons": "^1.2.0",
+    "paper-checkbox": "^1.4.2"
   }
 }

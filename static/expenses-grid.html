@@ -1,0 +1,204 @@
+<link rel="import" href="./polymer/polymer.html">
+
+<dom-module id="x-grid">
+  <template>
+    <style>
+      #expenses {
+        flex: 1;
+        color: var(--primary-text-color);
+        max-height: calc(100vh - 64px);
+        border: 0;
+        height: 100%;
+      }
+      @media (max-width: 1124px) {
+        #expenses {
+          max-height: calc(100vh - 64px - 290px);
+        }
+      }
+      @media (max-width: 900px) {
+        #expenses {
+          max-height: calc(100vh - 64px - 52px);
+        }
+      }
+      @media (max-width: 600px) {
+        #expenses {
+          max-height: calc(100vh - 56px - 48px);
+        }
+      }
+      vaadin-grid .status {
+        text-transform: capitalize;
+      }
+
+      vaadin-grid .status-new {
+        color: var(--accent-color);
+        font-weight: 500;
+      }
+
+      vaadin-grid .status-in_progress {
+        font-weight: 500;
+        font-style: italic;
+        text-transform: capitalize;
+      }
+
+      vaadin-grid .total {
+        text-align: right;
+      }
+
+      vaadin-grid#expenses {
+        font-family: Roboto, sans-serif;
+        --divider-color: rgba(0, 0, 0, var(--dark-divider-opacity));
+        --vaadin-grid-cell: {
+          padding: 0;
+        }
+        ;
+        --vaadin-grid-header-cell: {
+          height: 56px;
+          color: var(--primary-text-color);
+          text-transform: uppercase;
+          font-size: 12px;
+          font-weight: 500;
+          color: rgba(0, 0, 0, 0.87);
+          padding: 0 24px 0 24px;
+        }
+        ;
+        --vaadin-grid-body-cell: {
+          color: rgba(0, 0, 0, var(--dark-primary-opacity));
+          font-size: 15px;
+          padding: 3px 24px;
+          cursor: pointer;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        ;
+        --vaadin-grid-body-row-hover-cell: {
+          background-color: var(--paper-grey-200);
+        }
+        ;
+        --vaadin-grid-body-row-selected-cell: {
+          background-color: var(--paper-grey-100);
+        }
+        ;
+        --vaadin-grid-focused-cell: {
+          box-shadow: none;
+          font-weight: bold;
+        }
+        ;
+      }
+
+      vaadin-grid#expenses .cell.last {
+        padding-right: 24px;
+      }
+
+      vaadin-grid#expenses .numeric {
+        text-align: right;
+      }
+
+      vaadin-grid#expenses .comment {
+        white-space: normal;
+        line-height: 1.3;
+        padding: 1em 0;
+      }
+
+      vaadin-grid-sorter {
+        margin-right: -20px;
+        height: 56px;
+      }
+
+      @media (min-width: 1125px) {
+        vaadin-grid#expenses {
+          --vaadin-grid-body-cell: {
+            color: rgba(0, 0, 0, var(--dark-primary-opacity));
+            font-size: 13px;
+            padding: 3px 24px;
+            cursor: pointer;
+          };
+        }
+      }
+    </style>
+    <vaadin-grid id="expenses" items="[[items]]" active-item="{{activeItem}}" multi-sort>
+
+      <vaadin-grid-column width="8em" frozen>
+        <template class="header">
+          <vaadin-grid-sorter path="date" direction="desc">
+            <div class="header-cell">
+              Date
+            </div>
+          </vaadin-grid-sorter>
+        </template>
+        <template>
+          [[_formatDate(item.date)]]
+        </template>
+      </vaadin-grid-column>
+
+      <vaadin-grid-column width="8em" flex-grow="2">
+        <template class="header">
+          <vaadin-grid-sorter path="merchant">
+            <div class="header-cell">
+              Merchant
+            </div>
+          </vaadin-grid-sorter>
+        </template>
+        <template>
+          [[item.merchant]]
+        </template>
+      </vaadin-grid-column>
+
+      <vaadin-grid-column width="6em">
+        <template class="header">
+          <vaadin-grid-sorter path="total" class="numeric">
+            <div class="header-cell">
+              Total
+            </div>
+          </vaadin-grid-sorter>
+        </template>
+        <template>
+          <span class="total">[[_formatTotal(item.total)]]</span>
+        </template>
+      </vaadin-grid-column>
+
+      <vaadin-grid-column width="8em">
+        <template class="header">
+          <vaadin-grid-sorter path="status">
+            <div class="header-cell">
+              Status
+            </div>
+          </vaadin-grid-sorter>
+        </template>
+        <template>
+          <span class$="status-[[item.status]] status">[[_formatStatus(item.status)]]</span>
+        </template>
+      </vaadin-grid-column>
+
+      <vaadin-grid-column width="14em" flex-grow="3">
+        <template class="header">
+          <vaadin-grid-sorter path="comment">
+            <div class="header-cell">
+              Comment
+            </div>
+          </vaadin-grid-sorter>
+        </template>
+        <template>
+          <div class="comment">[[item.comment]]</div>
+        </template>
+      </vaadin-grid-column>
+
+    </vaadin-grid>
+  </template>
+  <script>
+    Polymer({
+      is: 'x-grid',
+
+      _formatDate: function(date) {
+        return date;
+      },
+
+      _formatTotal: function(total) {
+        return total;
+      },
+
+      _formatStatus: function(status) {
+        return status;
+      }
+    });
+  </script>
+</dom-module>
