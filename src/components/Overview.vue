@@ -4,13 +4,11 @@
     <link rel="import" href="./static/iron-ajax/iron-ajax.html">
     <link rel="import" href="./static/paper-header-panel/paper-header-panel.html">
     <link rel="import" href="./static/paper-toolbar/paper-toolbar.html">
-    <!--<vaadin-pouchdb id="db" dbname="{{dbLocal}}" remote="{{dbRemote}}" data="{{expenses}}" status="{{status}}"></vaadin-pouchdb>-->
+    <link rel="import" href="./static/vaadin-pouchdb/vaadin-pouchdb.html">
+    <link rel="import" href="./static/paper-button/paper-button.html">
 
-    <!--<app-location route="{{route}}" use-hash-as-path></app-location>
-    <app-route route="{{route}}" pattern="/:dbId" data="{{routeData}}" tail="{{subroute}}">
-    </app-route>-->
-
-    <iron-ajax id="ajax" handle-as="json" v-on:response="_handleBackendResponse" v-on:error="_handleBackendError"></iron-ajax>
+    <vaadin-pouchdb ref="db" :dbname="dbLocal" :remote="dbRemote" @remote-changed="$event.target.query()" @data-changed="expenses = $event.detail.value" @status-changed="status = $event.detail.value"></vaadin-pouchdb>
+    <iron-ajax handle-as="json" :url="dbUrl" @response="_handleBackendResponse" auto></iron-ajax>
 
     <paper-header-panel>
       <paper-toolbar>
@@ -20,12 +18,12 @@
         <span class="flex"></span>
 
         <paper-button on-tap="_openInfoWindow" class="about-button">Info</paper-button>
-        <paper-button on-tap="_logout" class="logout-button">Logout</paper-button>
+        <paper-button @tap="_logout" class="logout-button">Logout</paper-button>
       </paper-toolbar>
 
       <div class="content">
         <filters-toolbar id="filters-toolbar" total-owed="[[totalOwed]]" merchants="[[merchants]]" v-bind:filters="filters" expenses="[[expenses]]"></filters-toolbar>
-        <content-panel id="content-panel" v-bind:filters="filters" total-owed="[[totalOwed]]" expenses="[[expenses]]"></content-panel>
+        <content-panel id="content-panel" v-bind:filters="filters" total-owed="[[totalOwed]]" :expenses="expenses"></content-panel>
       </div>
 
     </paper-header-panel>
@@ -33,7 +31,7 @@
     <!--<expense-editor id="expenseEditor" merchants="[[merchants]]" db="[[_db]]" route="{{subroute}}"></expense-editor>-->
     <paper-toast id="saveNotification"></paper-toast>
     <info-dialog id="info"></info-dialog>
-    <iron-localstorage name="expense-manager-db-id" v-bind:value="dbId"></iron-localstorage>
+    <iron-localstorage ref="localStorage" name="expense-manager-db-id"></iron-localstorage>
   </div>
 </template>
 
@@ -47,9 +45,46 @@
     components: {InfoDialog, FiltersToolbar, ContentPanel},
     props: ['dbId', 'filters'],
 
+    data: function () {
+      return {
+        dbLocal: {
+          type: String
+        },
+        dbRemote: String,
+        expenses: {
+          type: Array,
+          default: function () {
+            return []
+          }
+        },
+        status: String
+      }
+    },
+
+    computed: {
+      dbUrl: function () {
+        return 'https://expense-manager.demo.vaadin.com/api/db/' + this.dbId
+      }
+    },
+
     methods: {
-      _handleBackendResponse: () => {
-        // TODO
+      _logout: function () {
+        this.$refs.localStorage.value = null
+        this.$router.push('/')
+      },
+
+      _handleBackendResponse: function (evt) {
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+        var rsp = evt.detail.response
+        if (rsp && rsp.backend_db_id) {
+          // Setting these, makes couchdb connect to local & remote DB and start syncing
+          this.dbLocal = 'db_' + this.dbId
+          this.dbRemote = rsp.couchdb_db_url
+
+          if (rsp.new_db) {
+            this._showInfo = true
+          }
+        }
       },
 
       _handleBackendError: () => {

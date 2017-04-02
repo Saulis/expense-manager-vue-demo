@@ -8,7 +8,7 @@
 
     <iron-media-query query="min-width: 1125px" v-on:query-matches-changed="_largeScreen = $event.detail.value"></iron-media-query>
 
-    <x-grid v-bind2:items="filteredExpenses"></x-grid>
+    <x-grid ref="grid"></x-grid>
     <paper-fab icon="add" on-tap="_showExpenseEditor" id="add-button"></paper-fab>
   </div>
 </template>
@@ -17,26 +17,16 @@
   export default {
     name: 'expenses-list',
     props: {
-      activeItem: {
-        type: Object
-      },
-      _largeScreen: {
-        type: Boolean
-      },
-      filteredExpenses: {
-        type: Array,
+      expenses: {
         default: function () {
-          return ['foo', 'bar']
+          return []
         }
       }
     },
 
-    directives: {
-      bind2: {
-        bind: function (el, binding) {
-          console.log(binding.value)
-          el[binding.arg] = binding.value
-        }
+    watch: {
+      expenses: function (ex) {
+        this.$refs.grid.items = ex
       }
     }
   }

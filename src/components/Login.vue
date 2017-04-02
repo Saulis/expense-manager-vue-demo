@@ -3,6 +3,9 @@
     <link rel="import" href="./static/paper-input/paper-input.html">
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/iron-a11y-keys/iron-a11y-keys.html">
+    <link rel="import" href="./static/iron-ajax/iron-ajax.html">
+    <link rel="import" href="./static/iron-localstorage/iron-localstorage.html">
+
 
     <iron-a11y-keys keys="enter" v-on:keys-pressed="_logIn"></iron-a11y-keys>
     <div id="header" class="header">
@@ -22,6 +25,8 @@
           Built with <a href="https://vaadin.com/elements">Vaadin Elements</a>
         </span>
     </div>
+    <iron-ajax ref="ajax" handle-as="json" v-on:response="_onResponse" url="https://expense-manager.demo.vaadin.com/api/create"></iron-ajax>
+    <iron-localstorage name="expense-manager-db-id" v-bind:value="dbId" v-on:value-changed="dbId = $event.detail.value"></iron-localstorage>
   </div>
 </template>
 
@@ -31,25 +36,32 @@
     props: ['errorMessage'],
     data () {
       return {
+        dbId: '',
         username: 'foo',
         password: 'bar'
       }
     },
 
+    watch: {
+      dbId: function (id) {
+        if (id) {
+          this.$router.replace('/' + id)
+        }
+      }
+    },
+
     methods: {
+      _onResponse: function (e) {
+        var rsp = e.detail.response
+        if (rsp && rsp.backend_db_id) {
+          this.dbId = rsp.backend_db_id
+        }
+      },
+
       _logIn: function (e) {
-        this.$router.replace('/foobar')
+        this.$refs.ajax.generateRequest()
       }
     }
-    // props: {
-    //   username: {
-    //     type: String,
-    //     default: 'foo'
-    //   },
-    //   password: {
-    //     type: String
-    //   }
-    // }
   }
 </script>
 
@@ -66,7 +78,7 @@
     background: var(--dark-primary-color);
     min-height: 400px;
   }
-  
+
   .login paper-input {
     width: 100%;
     /*--paper-input-container-input-color: var(--text-primary-color);*/

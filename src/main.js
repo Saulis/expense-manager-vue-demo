@@ -11,7 +11,7 @@ Vue.config.ignoredElements = [
   'paper-button', 'paper-input', 'iron-a11y-keys', 'vaadin-pouchdb', 'iron-ajax', 'paper-header-panel',
   'paper-toolbar', 'iron-icon', 'paper-toast', 'iron-localstorage', 'paper-icon-button',
   'paper-fab', 'vaadin-grid', 'vaadin-grid-column', 'vaadin-grid-sorter', 'iron-media-query',
-  'paper-checkbox'
+  'paper-checkbox', 'vaadin-pouchdb'
 ]
 
 /* eslint-disable no-new */

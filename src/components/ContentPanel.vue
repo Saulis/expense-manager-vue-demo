@@ -1,6 +1,6 @@
 <template>
   <div id="content-panel">
-    <expenses-list id="list" expenses="[[expenses]]" filters="[[filters]]"></expenses-list>
+    <expenses-list id="list" :expenses="expenses" filters="[[filters]]"></expenses-list>
     <!--<history-panel id="history-panel" total-owed="[[totalOwed]]" expenses="[[expenses]]"></history-panel>-->
   </div>
 </template>
@@ -10,7 +10,14 @@
 
   export default {
     name: 'content-panel',
-    components: { ExpensesList }
+    components: { ExpensesList },
+    props: {
+      expenses: {
+        default: function () {
+          return []
+        }
+      }
+    }
   }
 </script>
 
