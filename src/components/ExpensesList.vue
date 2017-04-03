@@ -8,8 +8,8 @@
 
     <iron-media-query query="min-width: 1125px" v-on:query-matches-changed="_largeScreen = $event.detail.value"></iron-media-query>
 
-    <x-grid ref="grid"></x-grid>
-    <paper-fab icon="add" on-tap="_showExpenseEditor" id="add-button"></paper-fab>
+    <x-grid ref="grid" id="expenses"></x-grid>
+    <!--<paper-fab icon="add" on-tap="_showExpenseEditor" id="add-button"></paper-fab>-->
   </div>
 </template>
 
@@ -59,6 +59,29 @@
   @media (max-width: 900px) {
     #add-button {
       bottom: 32px;
+    }
+  }
+
+  #expenses {
+    flex: 1;
+    color: var(--primary-text-color);
+    max-height: calc(100vh - 64px);
+    border: 0;
+    height: 100%;
+  }
+  @media (max-width: 1124px) {
+    #expenses {
+      max-height: calc(100vh - 64px - 290px);
+    }
+  }
+  @media (max-width: 900px) {
+    #expenses {
+      max-height: calc(100vh - 64px - 52px);
+    }
+  }
+  @media (max-width: 600px) {
+    #expenses {
+      max-height: calc(100vh - 56px - 48px);
     }
   }
 </style>

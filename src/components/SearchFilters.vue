@@ -147,7 +147,14 @@
     .title {
       display: block;
       padding: 14px 0;
-      @apply(--section-title);
+      font-weight: 400;
+      font-size: 13px;
+      display: block;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+      margin-top: 4px;
+      color: rgba(0, 0, 0, 0.54);
     }
     .checkboxes,
     .checkboxes> paper-checkbox {
