@@ -1,4 +1,6 @@
+<script src="./moment/moment.js"></script>
 <link rel="import" href="./polymer/polymer.html">
+
 
 <dom-module id="x-grid">
   <template>
@@ -10,40 +12,44 @@
         border: 0;
         height: 100%;
       }
+      
       @media (max-width: 1124px) {
         #expenses {
           max-height: calc(100vh - 64px - 290px);
         }
       }
+      
       @media (max-width: 900px) {
         #expenses {
           max-height: calc(100vh - 64px - 52px);
         }
       }
+      
       @media (max-width: 600px) {
         #expenses {
           max-height: calc(100vh - 56px - 48px);
         }
       }
+      
       vaadin-grid .status {
         text-transform: capitalize;
       }
-
+      
       vaadin-grid .status-new {
         color: var(--accent-color);
         font-weight: 500;
       }
-
+      
       vaadin-grid .status-in_progress {
         font-weight: 500;
         font-style: italic;
         text-transform: capitalize;
       }
-
+      
       vaadin-grid .total {
         text-align: right;
       }
-
+      
       vaadin-grid#expenses {
         font-family: Roboto, sans-serif;
         --divider-color: rgba(0, 0, 0, var(--dark-divider-opacity));
@@ -84,26 +90,26 @@
         }
         ;
       }
-
+      
       vaadin-grid#expenses .cell.last {
         padding-right: 24px;
       }
-
+      
       vaadin-grid#expenses .numeric {
         text-align: right;
       }
-
+      
       vaadin-grid#expenses .comment {
         white-space: normal;
         line-height: 1.3;
         padding: 1em 0;
       }
-
+      
       vaadin-grid-sorter {
         margin-right: -20px;
         height: 56px;
       }
-
+      
       @media (min-width: 1125px) {
         vaadin-grid#expenses {
           --vaadin-grid-body-cell: {
@@ -111,9 +117,11 @@
             font-size: 13px;
             padding: 3px 24px;
             cursor: pointer;
-          };
+          }
+          ;
         }
       }
+
     </style>
     <vaadin-grid id="expenses" items="[[items]]" active-item="{{activeItem}}" multi-sort>
 
@@ -188,17 +196,24 @@
     Polymer({
       is: 'x-grid',
 
-      _formatDate: function(date) {
-        return date;
+      _formatTotal: function (total) {
+        if (total) {
+          return '$' + total.toFixed(2);
+        }
       },
 
-      _formatTotal: function(total) {
-        return total;
+      _formatStatus: function (status) {
+        if (status) {
+          return status.replace('_', ' ')
+        }
       },
 
-      _formatStatus: function(status) {
-        return status;
+      _formatDate: function (date) {
+        if (date) {
+          return moment(date).format('MM/DD/YYYY');
+        }
       }
     });
+
   </script>
 </dom-module>
