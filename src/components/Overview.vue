@@ -22,8 +22,8 @@
       </paper-toolbar>
 
       <div class="content">
-        <filters-toolbar id="filters-toolbar" total-owed="[[totalOwed]]" merchants="[[merchants]]" v-bind:filters="filters" expenses="[[expenses]]"></filters-toolbar>
-        <content-panel id="content-panel" v-bind:filters="filters" total-owed="[[totalOwed]]" :expenses="expenses"></content-panel>
+        <filters-toolbar id="filters-toolbar" :total-owed="totalOwed" merchants="[[merchants]]" v-bind:filters="filters" expenses="[[expenses]]"></filters-toolbar>
+        <content-panel id="content-panel" v-bind:filters="filters" :total-owed="totalOwed" :expenses="expenses"></content-panel>
       </div>
 
     </paper-header-panel>
@@ -64,6 +64,22 @@
     computed: {
       dbUrl: function () {
         return 'https://expense-manager.demo.vaadin.com/api/db/' + this.dbId
+      },
+
+      totalOwed: function () {
+        if (!this.expenses.length) {
+          return '$0.00'
+        }
+
+        var total = this.expenses.filter(function (exp) {
+          return exp.status === 'new'
+        }).map(function (exp) {
+          return exp.total
+        })
+        .reduce(function (a, b) {
+          return a + b
+        }, 0)
+        return '$' + total.toFixed(2)
       }
     },
 

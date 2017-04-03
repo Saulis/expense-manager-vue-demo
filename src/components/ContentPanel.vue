@@ -1,7 +1,7 @@
 <template>
   <div host="content-panel">
     <expenses-list id="list" :expenses="expenses" filters="[[filters]]"></expenses-list>
-    <history-panel id="history-panel" total-owed="[[totalOwed]]" :expenses="expenses"></history-panel>
+    <history-panel id="history-panel" :total-owed="totalOwed" :expenses="expenses"></history-panel>
   </div>
 </template>
 
@@ -17,7 +17,9 @@
         default: function () {
           return []
         }
-      }
+      },
+
+      totalOwed: String
     }
   }
 </script>

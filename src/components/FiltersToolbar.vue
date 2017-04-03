@@ -13,7 +13,7 @@
     <div id="toolbar">
       <div id="total">
         <span>To be reimbursed</span>
-        <span class="sum">[[totalOwed]]</span>
+        <span class="sum">{{totalOwed}}</span>
       </div>
 
       <div id="filters-toggle" on-tap="_toggleFilters">
@@ -31,7 +31,7 @@
   export default {
     name: 'filters-toolbar',
     components: { SearchFilters },
-    props: ['filters']
+    props: ['filters', 'totalOwed']
   }
 </script>
 

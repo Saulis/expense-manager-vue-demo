@@ -1,13 +1,14 @@
 <template>
   <div id="history-panel">
     <link rel="import" href="./static/history-chart.html">
-    <history-chart></history-chart>
+    <history-chart :total-owed="totalOwed"></history-chart>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'history-panel'
+    name: 'history-panel',
+    props: ['totalOwed']
   }
 </script>
 
