@@ -1,14 +1,20 @@
 <template>
   <div id="history-panel">
     <link rel="import" href="./static/history-chart.html">
-    <history-chart :total-owed="totalOwed"></history-chart>
+    <history-chart ref="chart" :total-owed="totalOwed"></history-chart>
   </div>
 </template>
 
 <script>
   export default {
     name: 'history-panel',
-    props: ['totalOwed']
+    props: ['totalOwed', 'expenses'],
+
+    watch: {
+      expenses: function (expenses) {
+        this.$refs.chart.expenses = expenses
+      }
+    }
   }
 </script>
 
