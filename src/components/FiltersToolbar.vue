@@ -3,7 +3,7 @@
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/paper-icon-button/paper-icon-button.html">
 
-    <search-filters v-bind:filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]" id="filters">
+    <search-filters :filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]" id="filters">
       <div id="buttons">
         <paper-button id="clear-button" on-tap="_clearFilters">Clear Filters</paper-button>
         <paper-button id="done-button" on-tap="_hideFilters" raised>Done</paper-button>

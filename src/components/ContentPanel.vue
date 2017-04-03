@@ -1,6 +1,6 @@
 <template>
   <div host="content-panel">
-    <expenses-list id="list" :expenses="expenses" filters="[[filters]]"></expenses-list>
+    <expenses-list id="list" :expenses="expenses" :filters="filters"></expenses-list>
     <history-panel id="history-panel" :total-owed="totalOwed" :expenses="expenses"></history-panel>
   </div>
 </template>
@@ -12,15 +12,7 @@
   export default {
     name: 'content-panel',
     components: { ExpensesList, HistoryPanel },
-    props: {
-      expenses: {
-        default: function () {
-          return []
-        }
-      },
-
-      totalOwed: String
-    }
+    props: ['expenses', 'filters', 'totalOwed']
   }
 </script>
 

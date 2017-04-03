@@ -16,17 +16,29 @@
 <script>
   export default {
     name: 'expenses-list',
-    props: {
-      expenses: {
-        default: function () {
-          return []
-        }
+    props: ['expenses', 'filters'],
+
+    watch: {
+      filteredExpenses: function (ex) {
+        this.$refs.grid.items = ex
       }
     },
 
-    watch: {
-      expenses: function (ex) {
-        this.$refs.grid.items = ex
+    computed: {
+      filteredExpenses: function () {
+        if (!this.filters || !this.expenses.filter) {
+          return this.expenses
+        }
+
+        var status = this.filters.status
+
+        return this.expenses.filter(function (expense) {
+          if (status && status.length > 0) {
+            return status.indexOf(expense.status) >= 0
+          } else {
+            return false
+          }
+        })
       }
     }
   }

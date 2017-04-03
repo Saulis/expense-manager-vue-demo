@@ -38,11 +38,8 @@
             <span class="caption">Status</span>
             <div class="checkboxes">
               <template v-for="status in statusOptions">
-                <paper-checkbox>{{status.label}}</paper-checkbox>
+                <paper-checkbox @change="_toggleStatus(status.name)" :checked="_isChecked(status.name)">{{status.label}}</paper-checkbox>
               </template>
-              <!--<template is="dom-repeat" items="[[statusOptions]]">
-                <paper-checkbox on-change="_updateStatus" checked="[[_filtersContain(item.name, filters.*)]]" name$="[[item.name]]">[[item.label]]</paper-checkbox>
-              </template>-->
             </div>
           </div>
         </div>
@@ -63,28 +60,46 @@
         default: function () {
           return []
         }
-      }
+      },
+
+      filters: Object
     },
 
     data: function () {
       return {
-        filters: {
-          type: Array,
-          default: function () {
-            return []
-          }
-        },
         statusOptions: [
           {
-            label: 'New'
+            label: 'New',
+            name: 'new'
           },
           {
-            label: 'In Progress'
+            label: 'In Progress',
+            name: 'in_progress'
           },
           {
-            label: 'Reimbursed'
+            label: 'Reimbursed',
+            name: 'reimbursed'
           }
         ]
+      }
+    },
+
+    methods: {
+      _toggleStatus: function (name) {
+        if (!this.filters.status) {
+          this.$set(this.filters, 'status', [])
+        }
+
+        var index = this.filters.status.indexOf(name)
+        if (index < 0) {
+          this.filters.status.push(name)
+        } else {
+          this.filters.status.splice(index, 1)
+        }
+      },
+
+      _isChecked: function (name) {
+        return this.filters && this.filters.status && this.filters.status.indexOf(name) >= 0
       }
     }
   }
