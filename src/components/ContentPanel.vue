@@ -64,7 +64,7 @@
   }
   @media (max-width: 900px) {
     #history-panel {
-      display: none;
+      display: none !important;
     }
     #list {
       margin-bottom: 0;

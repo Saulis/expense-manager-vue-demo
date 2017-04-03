@@ -5,6 +5,10 @@
 <dom-module id="x-grid">
   <template>
     <style>
+      :host {
+        z-index: 1;
+      }
+
       vaadin-grid#expenses {
         flex: 1;
         color: var(--primary-text-color);
