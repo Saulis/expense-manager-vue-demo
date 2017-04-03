@@ -1,0 +1,161 @@
+<link rel="import" href="./vaadin-charts/vaadin-bar-chart.html">
+<link rel="import" href="./vaadin-charts/vaadin-column-chart.html">
+
+<dom-module id="history-chart">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chart-title {
+        font-weight: 400;
+        font-size: 13px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+        padding-bottom: 6px;
+        margin-bottom: 18px;
+        margin-top: 4px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+
+      #barchart::content text {
+        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+
+      #horizontal {
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        .chart,
+        #horizontal {
+          display: none;
+        }
+        .total {
+          height: 64px;
+          -ms-flex-direction: row;
+          -webkit-flex-direction: row;
+          flex-direction: row;
+        }
+        .total .sum {
+          margin-left: 12px;
+        }
+      }
+
+      @media (max-width: 1124px) {
+        #horizontal {
+          display: flex;
+        }
+        .chart-title {
+          display: none;
+        }
+        #horizontal .chart-title {
+          display: block;
+          width: 450px;
+        }
+        #total>span:first-child {
+          @apply(--section-title);
+        }
+        #total {
+          flex: 1;
+          margin-left: 16px;
+        }
+        #total .sum {
+          display: block;
+          text-align: center;
+          font-weight: 200;
+          font-size: 32px;
+          line-height: 100px;
+        }
+        #barchart {
+          display: none;
+        }
+      }
+
+      @media (min-width: 1125px) {
+        .chart-title {
+          margin-top: 200px;
+        }
+      }
+    </style>
+
+    <div id="container">
+
+      <div class="chart">
+        <h2 class="chart-title section-title">Last 12 Months in Total</h2>
+        <vaadin-bar-chart id="barchart">
+          <title>
+            <style display="none"></style>
+          </title>
+          <chart background-color="transparent" height="400" width="250"></chart>
+          <exporting enabled="false"></exporting>
+          <x-axis>
+            <title>
+              <style display="none" v-pre></style>
+            </title>
+            <labels>
+              <chart-style>{"color": "#000"}</chart-style>
+            </labels>
+          </x-axis>
+          <y-axis>
+            <title>
+              <style display="none"></style>
+            </title>
+          </y-axis>
+          <tooltip formatter="function() { return '$' + this.y.toFixed(2); }"></tooltip>
+          <data-series name="$" data="[[seriesData]]">
+            <color>#ffc13f</color>
+          </data-series>
+          <legend enabled="false"></legend>
+        </vaadin-bar-chart>
+
+        <div id="horizontal">
+          <div>
+            <h2 class="chart-title section-title">Last 12 Months in Total</h2>
+            <vaadin-column-chart id="columnchart">
+              <title>
+                <style display="none"></style>
+              </title>
+              <chart background-color="transparent" height="200" width="450"></chart>
+              <exporting enabled="false"></exporting>
+              <x-axis>
+                <title>
+                  <style display="none"></style>
+                </title>
+                <labels>
+                  <chart-style>{"color": "#000"}</chart-style>
+                </labels>
+              </x-axis>
+              <y-axis>
+                <title>
+                  <style display="none"></style>
+                </title>
+              </y-axis>
+              <tooltip formatter="function() { return '$' + this.y.toFixed(2); }"></tooltip>
+              <data-series name="$" data="[[seriesData]]">
+                <color>#ffc13f</color>
+              </data-series>
+              <legend enabled="false"></legend>
+            </vaadin-column-chart>
+          </div>
+          <div id="total">
+            <span>To be reimbursed</span>
+            <span class="sum">[[totalOwed]]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'history-chart'
+    });
+
+  </script>
+</dom-module>

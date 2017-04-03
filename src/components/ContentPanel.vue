@@ -1,16 +1,17 @@
 <template>
-  <div id="content-panel">
+  <div host="content-panel">
     <expenses-list id="list" :expenses="expenses" filters="[[filters]]"></expenses-list>
-    <!--<history-panel id="history-panel" total-owed="[[totalOwed]]" expenses="[[expenses]]"></history-panel>-->
+    <history-panel id="history-panel" total-owed="[[totalOwed]]" :expenses="expenses"></history-panel>
   </div>
 </template>
 
 <script>
   import ExpensesList from './ExpensesList'
+  import HistoryPanel from './HistoryPanel'
 
   export default {
     name: 'content-panel',
-    components: { ExpensesList },
+    components: { ExpensesList, HistoryPanel },
     props: {
       expenses: {
         default: function () {
@@ -22,7 +23,7 @@
 </script>
 
 <style>
-  #content-panel {
+  [host="content-panel"] {
     display: flex;
     height: 100%;
   }

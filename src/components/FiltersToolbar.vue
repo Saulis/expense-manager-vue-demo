@@ -1,5 +1,5 @@
 <template>
-  <div id="filters-toolbar">
+  <div host="filters-toolbar">
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/paper-icon-button/paper-icon-button.html">
 
@@ -36,7 +36,7 @@
 </script>
 
 <style scoped>
-  #filters-toolbar {
+  [host="filters-toolbar"] {
     display: flex;
     position: relative;
     z-index: 10;
@@ -182,7 +182,14 @@
   }
   @media (min-width: 1125px) {
     #total> span:first-child {
-      @apply(--section-title);
+      font-weight: 400;
+      font-size: 13px;
+      display: block;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+      margin-top: 4px;
+      color: rgba(0, 0, 0, 0.54);
     }
     #toolbar {
       display: block;

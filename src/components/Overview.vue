@@ -1,5 +1,5 @@
 <template>
-  <div id="overview-page">
+  <div host="overview-page">
     <link rel="import" href="./static/iron-localstorage/iron-localstorage.html">
     <link rel="import" href="./static/iron-ajax/iron-ajax.html">
     <link rel="import" href="./static/paper-header-panel/paper-header-panel.html">
@@ -95,7 +95,7 @@
 </script>
 
 <style scoped>
-  #overview-page {
+ [host="overview-page"] {
     position: absolute;
     top: 0;
     right: 0;

@@ -1,5 +1,5 @@
 <template>
-  <div id="expenses-list">
+  <div host="expenses-list">
     <link rel="import" href="./static/vaadin-grid/vaadin-grid.html">
     <link rel="import" href="./static/vaadin-grid/vaadin-grid-sorter.html">
     <link rel="import" href="./static/paper-fab/paper-fab.html">
@@ -33,7 +33,7 @@
 </script>
 
 <style>
-  #expenses-list {
+  [host="expenses-list"] {
     position: relative;
     display: flex;
     flex-direction: column;
