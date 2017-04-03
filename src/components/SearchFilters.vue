@@ -1,6 +1,9 @@
 <template>
   <div host="search-filters">
     <link rel="import" href="./static/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="./static/paper-input/paper-input.html">
+    <link rel="import" href="./static/vaadin-date-picker/vaadin-date-picker.html">
+    <link rel="import" href="./static/vaadin-combo-box/vaadin-combo-box.html">
 
     <div id="content">
       <div class="filters">
@@ -8,25 +11,25 @@
 
         <div class="row">
           <div class="date col">
-            <!--<vaadin-date-picker id="from" auto-validate label="From" value="{{filters.start}}" max="{{filters.end}}"></vaadin-date-picker>-->
+            <vaadin-date-picker id="from" auto-validate label="From" :value="filters.start" :max="filters.end"></vaadin-date-picker>
             <span>–</span>
-            <!--<vaadin-date-picker id="to" auto-validate label="To" value="{{filters.end}}" min="{{filters.start}}"></vaadin-date-picker>-->
+            <vaadin-date-picker id="to" auto-validate label="To" :value="filters.end" :min="filters.start"></vaadin-date-picker>
           </div>
         </div>
 
         <div class="row">
           <div class="total col">
-            <!--<paper-input label="Min" value="{{filters.min}}" type="number" required step="any">-->
+            <paper-input label="Min" :value="filters.min" type="number" required step="any">
               <div prefix>$</div>
             </paper-input>
             <span>–</span>
-            <!--<paper-input label="Max" value="{{filters.max}}" type="number" required step="any"></paper-input>-->
+            <paper-input label="Max" :value="filters.max" type="number" required step="any"></paper-input>
           </div>
         </div>
 
         <div class="row">
           <div class="merchants col">
-            <!--<vaadin-combo-box label="Merchant" items="{{merchants}}" value="{{filters.merchant}}" id="merchantsSelect"></vaadin-combo-box>-->
+            <vaadin-combo-box label="Merchant" :items="merchants" :value="filters.merchant" id="merchantsSelect"></vaadin-combo-box>
           </div>
         </div>
 
@@ -34,7 +37,9 @@
           <div class="status col">
             <span class="caption">Status</span>
             <div class="checkboxes">
-               
+              <template v-for="status in statusOptions">
+                <paper-checkbox>{{status.label}}</paper-checkbox>
+              </template>
               <!--<template is="dom-repeat" items="[[statusOptions]]">
                 <paper-checkbox on-change="_updateStatus" checked="[[_filtersContain(item.name, filters.*)]]" name$="[[item.name]]">[[item.label]]</paper-checkbox>
               </template>-->
@@ -52,7 +57,36 @@
 
 <script>
   export default {
-    name: 'search-filters'
+    name: 'search-filters',
+    props: {
+      merchants: {
+        default: function () {
+          return []
+        }
+      }
+    },
+
+    data: function () {
+      return {
+        filters: {
+          type: Array,
+          default: function () {
+            return []
+          }
+        },
+        statusOptions: [
+          {
+            label: 'New'
+          },
+          {
+            label: 'In Progress'
+          },
+          {
+            label: 'Reimbursed'
+          }
+        ]
+      }
+    }
   }
 </script>
 
