@@ -29,7 +29,7 @@
 
         <div class="row">
           <div class="merchants col">
-            <vaadin-combo-box label="Merchant" :items="merchants" :value="filters.merchant" id="merchantsSelect"></vaadin-combo-box>
+            <vaadin-combo-box label="Merchant" ref="merchants" :value="filters.merchant" @value-changed="_toggleMerchant" id="merchantsSelect"></vaadin-combo-box>
           </div>
         </div>
 
@@ -55,14 +55,12 @@
 <script>
   export default {
     name: 'search-filters',
-    props: {
-      merchants: {
-        default: function () {
-          return []
-        }
-      },
+    props: ['filters', 'merchants'],
 
-      filters: Object
+    watch: {
+      merchants: function () {
+        this.$refs.merchants.items = this.merchants
+      }
     },
 
     data: function () {
@@ -96,6 +94,10 @@
         } else {
           this.filters.status.splice(index, 1)
         }
+      },
+
+      _toggleMerchant: function (e) {
+        this.$set(this.filters, 'merchant', e.detail.value)
       },
 
       _isChecked: function (name) {

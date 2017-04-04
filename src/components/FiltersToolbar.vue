@@ -3,7 +3,7 @@
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/paper-icon-button/paper-icon-button.html">
 
-    <search-filters ref="filters" id="filters" :filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]">
+    <search-filters ref="filters" id="filters" :filters="filters" status-options="[[_statusOptions]]" :merchants="merchants">
       <div id="buttons">
         <paper-button id="clear-button" @tap="_clearFilters">Clear Filters</paper-button>
         <paper-button id="done-button" @tap="_hideFilters" raised>Done</paper-button>
@@ -31,7 +31,7 @@
   export default {
     name: 'filters-toolbar',
     components: { SearchFilters },
-    props: ['filters', 'totalOwed'],
+    props: ['filters', 'totalOwed', 'merchants'],
 
     data: function () {
       return {
@@ -63,6 +63,7 @@
 
       _clearFilters: function () {
         this.$set(this.filters, 'status', ['new', 'in_progress'])
+        this.$set(this.filters, 'merchant', '')
         this._hideFilters()
       }
     }

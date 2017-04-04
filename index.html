@@ -93,7 +93,7 @@
       }
     }
 
-    #app {
+    body {
       --dark-primary-color: #33383a;
       --primary-color: #00b4f0;
       --light-primary-color: #F2FAF9;
@@ -110,16 +110,22 @@
     }
 
     /* TODO: remove hacksor */
-    .login paper-input input {
+    paper-input input {
       color: var(--text-primary-color) !important;
     }
 
-    .login paper-input[focused] label {
+    paper-input[focused] label,
+    vaadin-combo-box[focused] label {
       color: var(--primary-color) !important;
     }
 
-    .login paper-input[focused] div.focused-line {
+    paper-input[focused] div.focused-line,
+    vaadin-combo-box[focused] div.focused-line {
       border-color: var(--primary-color) !important;
+    }
+
+    vaadin-combo-box-item[selected] {
+      color: var(--primary-color) !important;
     }
 
     paper-checkbox #checkbox.checked {

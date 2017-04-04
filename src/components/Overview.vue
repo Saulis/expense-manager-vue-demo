@@ -7,7 +7,7 @@
     <link rel="import" href="./static/vaadin-pouchdb/vaadin-pouchdb.html">
     <link rel="import" href="./static/paper-button/paper-button.html">
 
-    <vaadin-pouchdb ref="db" :dbname="dbLocal" :remote="dbRemote" @remote-changed="$event.target.query()" @data-changed="expenses = $event.detail.value" @status-changed="status = $event.detail.value"></vaadin-pouchdb>
+    <vaadin-pouchdb ref="db" :dbname="dbLocal" :remote="dbRemote" @remote-changed="$event.target.query()" @data-changed="_onDataChanged" @status-changed="status = $event.detail.value"></vaadin-pouchdb>
     <iron-ajax handle-as="json" :url="dbUrl" @response="_handleBackendResponse" auto></iron-ajax>
 
     <paper-header-panel>
@@ -22,7 +22,7 @@
       </paper-toolbar>
 
       <div class="content">
-        <filters-toolbar id="filters-toolbar" :total-owed="totalOwed" merchants="[[merchants]]" :filters="filters" expenses="[[expenses]]"></filters-toolbar>
+        <filters-toolbar id="filters-toolbar" :total-owed="totalOwed" :merchants="merchants" :filters="filters" expenses="[[expenses]]"></filters-toolbar>
         <content-panel id="content-panel" :filters="filters" :total-owed="totalOwed" :expenses="expenses"></content-panel>
       </div>
 
@@ -52,6 +52,12 @@
         },
         dbRemote: String,
         expenses: {
+          type: Array,
+          default: function () {
+            return []
+          }
+        },
+        merchants: {
           type: Array,
           default: function () {
             return []
@@ -89,6 +95,15 @@
       _logout: function () {
         this.$refs.localStorage.value = null
         this.$router.push('/')
+      },
+
+      _onDataChanged: function (e) {
+        this.$set(this, 'expenses', e.detail.value)
+        this.$set(this, 'merchants', this.expenses.map(function (e) {
+          return e.merchant
+        }).filter(function (val, index, self) {
+          return self.indexOf(val) === index
+        }))
       },
 
       _handleBackendResponse: function (evt) {

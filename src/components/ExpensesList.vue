@@ -31,8 +31,14 @@
         }
 
         var status = this.filters.status
+        var merchant = this.filters.merchant
 
-        return this.expenses.filter(function (expense) {
+        return this.expenses
+        .filter(function (expense) {
+          return !(merchant && expense.merchant
+            .toUpperCase().indexOf(merchant.toUpperCase()) < 0)
+        })
+        .filter(function (expense) {
           if (status && status.length > 0) {
             return status.indexOf(expense.status) >= 0
           } else {
