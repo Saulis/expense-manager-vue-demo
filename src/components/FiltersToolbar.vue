@@ -1,12 +1,12 @@
 <template>
-  <div host="filters-toolbar">
+  <div host="filters-toolbar" v-bind:class="{ expanded: expanded }">
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/paper-icon-button/paper-icon-button.html">
 
-    <search-filters :filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]" id="filters">
+    <search-filters ref="filters" id="filters" :filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]">
       <div id="buttons">
         <paper-button id="clear-button" on-tap="_clearFilters">Clear Filters</paper-button>
-        <paper-button id="done-button" on-tap="_hideFilters" raised>Done</paper-button>
+        <paper-button id="done-button" @tap="_hideFilters" raised>Done</paper-button>
       </div>
     </search-filters>
 
@@ -16,7 +16,7 @@
         <span class="sum">{{totalOwed}}</span>
       </div>
 
-      <div id="filters-toggle" on-tap="_toggleFilters">
+      <div id="filters-toggle" @tap="_toggleFilters">
         <span>Filters</span>
         <div class="count" has-filters="[[_hasFilters(appliedFilters)]]">[[appliedFilters]]</div>
         <paper-icon-button icon="filter-list"></paper-icon-button>
@@ -31,7 +31,30 @@
   export default {
     name: 'filters-toolbar',
     components: { SearchFilters },
-    props: ['filters', 'totalOwed']
+    props: ['filters', 'totalOwed'],
+
+    data: function () {
+      return {
+        expanded: false
+      }
+    },
+
+    methods: {
+      _toggleFilters: function () {
+        this.expanded = !this.expanded
+        if (this.expanded) {
+          this.$refs.filters.$el.style.maxHeight = this.$refs.filters.$el.scrollHeight + 'px'
+        } else {
+          this.$refs.filters.$el.style.maxHeight = '4px'
+        }
+      },
+
+      _hideFilters: function () {
+        if (this.expanded) {
+          this._toggleFilters()
+        }
+      }
+    }
   }
 </script>
 
@@ -172,7 +195,7 @@
     #done-button {
       display: block;
     }
-    [host="filters-toolbar"][expanded] #filters-caption {
+    [host="filters-toolbar"].expanded #filters-caption {
       display: block;
       padding: 0;
       margin: 16px;
