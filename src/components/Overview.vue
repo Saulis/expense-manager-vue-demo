@@ -17,12 +17,12 @@
 
         <span class="flex"></span>
 
-        <paper-button on-tap="_openInfoWindow" class="about-button">Info</paper-button>
+        <paper-button class="about-button">Info</paper-button>
         <paper-button @tap="_logout" class="logout-button">Logout</paper-button>
       </paper-toolbar>
 
       <div class="content">
-        <filters-toolbar id="filters-toolbar" :total-owed="totalOwed" :merchants="merchants" :filters="filters" expenses="[[expenses]]"></filters-toolbar>
+        <filters-toolbar id="filters-toolbar" :total-owed="totalOwed" :merchants="merchants" :filters="filters"></filters-toolbar>
         <content-panel id="content-panel" :filters="filters" :total-owed="totalOwed" :expenses="expenses"></content-panel>
       </div>
 

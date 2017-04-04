@@ -7,15 +7,15 @@
     <link rel="import" href="./static/iron-localstorage/iron-localstorage.html">
 
 
-    <iron-a11y-keys keys="enter" v-on:keys-pressed="_logIn"></iron-a11y-keys>
+    <iron-a11y-keys keys="enter" @keys-pressed="_logIn"></iron-a11y-keys>
     <div id="header" class="header">
       <h1>Expense Manager</h1>
     </div>
     <div class="login">
-      <paper-input v-bind:value="username" v-on:value-changed="username = $event.target.value" label="Username" name="username"></paper-input>
-      <paper-input v-bind:value="password" v-on:value-changed="password = $event.target.value" label="Password" name="password" type="password"></paper-input>
+      <paper-input :value="username" @value-changed="username = $event.target.value" label="Username" name="username"></paper-input>
+      <paper-input :value="password" @value-changed="password = $event.target.value" label="Password" name="password" type="password"></paper-input>
       <span class="error-message">{{errorMessage}}</span>
-      <paper-button id="login-button" v-on:click="_logIn" raised>Login</paper-button>
+      <paper-button id="login-button" @click="_logIn" raised>Login</paper-button>
     </div>
     <div id="footer">
       <span class="fork-me">
@@ -25,8 +25,8 @@
           Built with <a href="https://vaadin.com/elements">Vaadin Elements</a>
         </span>
     </div>
-    <iron-ajax ref="ajax" handle-as="json" v-on:response="_onResponse" url="https://expense-manager.demo.vaadin.com/api/create"></iron-ajax>
-    <iron-localstorage name="expense-manager-db-id" v-bind:value="dbId" v-on:value-changed="dbId = $event.detail.value"></iron-localstorage>
+    <iron-ajax ref="ajax" handle-as="json" @response="_onResponse" url="https://expense-manager.demo.vaadin.com/api/create"></iron-ajax>
+    <iron-localstorage name="expense-manager-db-id" :value="dbId" @value-changed="dbId = $event.detail.value"></iron-localstorage>
   </div>
 </template>
 
@@ -34,7 +34,7 @@
   export default {
     name: 'login-page',
     props: ['errorMessage'],
-    data () {
+    data: function () {
       return {
         dbId: '',
         username: 'foo',

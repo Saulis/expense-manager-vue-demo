@@ -1,9 +1,9 @@
 <template>
-  <div host="filters-toolbar" v-bind:class="{ expanded: expanded }">
+  <div host="filters-toolbar" :class="{ expanded: expanded }">
     <link rel="import" href="./static/paper-button/paper-button.html">
     <link rel="import" href="./static/paper-icon-button/paper-icon-button.html">
 
-    <search-filters ref="filters" id="filters" :filters="filters" status-options="[[_statusOptions]]" :merchants="merchants">
+    <search-filters ref="filters" id="filters" :filters="filters" :merchants="merchants">
       <div id="buttons">
         <paper-button id="clear-button" @tap="_clearFilters">Clear Filters</paper-button>
         <paper-button id="done-button" @tap="_hideFilters" raised>Done</paper-button>
@@ -18,7 +18,7 @@
 
       <div id="filters-toggle" @tap="_toggleFilters">
         <span>Filters</span>
-        <div class="count" v-bind:class="{ hasFilters: appliedFilters > 0 }">{{appliedFilters}}</div>
+        <div class="count" :class="{ hasFilters: appliedFilters > 0 }">{{appliedFilters}}</div>
         <paper-icon-button icon="filter-list"></paper-icon-button>
       </div>
     </div>
@@ -41,7 +41,7 @@
 
     computed: {
       appliedFilters: function () {
-        return this.filters.status.length
+        return this.filters.status.length + (this.filters.merchant ? 1 : 0)
       }
     },
 

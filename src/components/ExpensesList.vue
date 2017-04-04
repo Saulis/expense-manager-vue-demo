@@ -2,11 +2,11 @@
   <div host="expenses-list">
     <link rel="import" href="./static/vaadin-grid/vaadin-grid.html">
     <link rel="import" href="./static/vaadin-grid/vaadin-grid-sorter.html">
-    <link rel="import" href="./static/paper-fab/paper-fab.html">
+    <!--<link rel="import" href="./static/paper-fab/paper-fab.html">-->
     <link rel="import" href="./static/iron-icons/iron-icons.html">
     <link rel="import" href="./static/expenses-grid.html">
 
-    <iron-media-query query="min-width: 1125px" v-on:query-matches-changed="_largeScreen = $event.detail.value"></iron-media-query>
+    <!--<iron-media-query query="min-width: 1125px" v-on:query-matches-changed="_largeScreen = $event.detail.value"></iron-media-query>-->
 
     <x-grid ref="grid" id="expenses"></x-grid>
     <!--<paper-fab icon="add" on-tap="_showExpenseEditor" id="add-button"></paper-fab>-->

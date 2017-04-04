@@ -11,19 +11,19 @@
 
         <div class="row">
           <div class="date col">
-            <vaadin-date-picker id="from" auto-validate label="From" :value="filters.start" :max="filters.end"></vaadin-date-picker>
+            <vaadin-date-picker id="from" auto-validate label="From" :value="filters.start" :max="filters.end" disabled></vaadin-date-picker>
             <span>–</span>
-            <vaadin-date-picker id="to" auto-validate label="To" :value="filters.end" :min="filters.start"></vaadin-date-picker>
+            <vaadin-date-picker id="to" auto-validate label="To" :value="filters.end" :min="filters.start" disabled></vaadin-date-picker>
           </div>
         </div>
 
         <div class="row">
           <div class="total col">
-            <paper-input label="Min" :value="filters.min" type="number" required step="any">
+            <paper-input label="Min" :value="filters.min" type="number" required step="any" disabled>
               <div prefix>$</div>
             </paper-input>
             <span>–</span>
-            <paper-input label="Max" :value="filters.max" type="number" required step="any"></paper-input>
+            <paper-input label="Max" :value="filters.max" type="number" required step="any" disabled></paper-input>
           </div>
         </div>
 
