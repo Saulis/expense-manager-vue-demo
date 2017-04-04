@@ -5,7 +5,7 @@
 
     <search-filters ref="filters" id="filters" :filters="filters" status-options="[[_statusOptions]]" merchants="[[merchants]]">
       <div id="buttons">
-        <paper-button id="clear-button" on-tap="_clearFilters">Clear Filters</paper-button>
+        <paper-button id="clear-button" @tap="_clearFilters">Clear Filters</paper-button>
         <paper-button id="done-button" @tap="_hideFilters" raised>Done</paper-button>
       </div>
     </search-filters>
@@ -53,6 +53,11 @@
         if (this.expanded) {
           this._toggleFilters()
         }
+      },
+
+      _clearFilters: function () {
+        this.$set(this.filters, 'status', ['new', 'in_progress'])
+        this._hideFilters()
       }
     }
   }
