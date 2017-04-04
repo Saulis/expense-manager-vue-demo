@@ -18,7 +18,7 @@
 
       <div id="filters-toggle" @tap="_toggleFilters">
         <span>Filters</span>
-        <div class="count" has-filters="[[_hasFilters(appliedFilters)]]">[[appliedFilters]]</div>
+        <div class="count" v-bind:class="{ hasFilters: appliedFilters > 0 }">{{appliedFilters}}</div>
         <paper-icon-button icon="filter-list"></paper-icon-button>
       </div>
     </div>
@@ -36,6 +36,12 @@
     data: function () {
       return {
         expanded: false
+      }
+    },
+
+    computed: {
+      appliedFilters: function () {
+        return this.filters.status.length
       }
     },
 
@@ -114,7 +120,7 @@
     transform: scale(0);
     transition: all 400ms cubic-bezier(0.4, 0.0, 0.2, 1);
   }
-  #filters-toggle .count[has-filters] {
+  #filters-toggle .count.hasFilters {
     transform: scale(1);
   }
   #filters-caption {
